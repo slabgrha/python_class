@@ -1,0 +1,187 @@
+
+Name  Holds      Ordered/Unordered  Mutable/Immutable
+----  ---------- -----------------  ------------------
+Sets  Immutable  Unordered          Mutable
+
+###########################
+# Sets                    #
+###########################
+Use: Database / Math - set theory
+Special Abilities: no repeats
+
+# Help
+help(set([]))
+  * what are the __func__ stuff?
+dir(set([]))
+
+# Declaring
+x = set('abcde')
+y = set('dbxyz')
+x
+# python 3.0
+a = {1, 2, 3, 4}
+a
+# No repeats
+b = set('aabbcc') 
+b
+
+# Set operations
+'e' in x
+x - y
+x | y
+x & y
+x ^ y
+x > y, y < x
+x & set(['abc'])
+x & { 'a', 'b', 'c' }
+
+# Adding & Removing
+z = x & y
+z.add('SPAM')
+z
+z.remove('b')
+z
+
+# Iterators
+for item in set('abc'):
+  print(item * 3)
+
+# Comprehension
+{ item * 3 for item in [1, 2, 3, 4] }
+
+# Cool stuff
+#- remove dups
+L = [1, 2, 1, 3, 2, 4, 5]
+set(L)
+L = list(set(L))
+L
+#- query-like behavior
+engineers = {'bob', 'sue', 'ann', 'vic'}
+managers  = {'tom', 'sue' }
+'bob' in engineers
+engineers & managers
+managers - engineers
+engineers - managers
+managers < engineers
+managers.remove('tom')
+managers < engineers
+#- works with lists too
+L = [1, 2, 3, 4]
+M = [1, 3]
+L - M
+
+# this...
+list(set(L) - set(M))
+# vs. this...
+common=[]
+for item in L:
+  for item2 in M:
+    if item == item2:
+      common.append(item)
+# Can you think of another way? 
+common=[]
+for item in L:
+  if item in M:
+    common.append(item)
+
+# differences between lists
+L=[1, 2, 3, 4, 5]
+L.remove(7)
+
+Traceback (most recent call last):
+  File "<pyshell#319>", line 1, in <module>
+    L.remove(7)
+ValueError: list.remove(x): x not in list
+S1 = set([1, 2, 3, 4, 5])
+S1.discard(9)
+S1
+set([1, 2, 3, 4, 5])
+
+# why immutable only?
+id(4)
+id(2+2)
+a = 'a'
+b = a
+id('a')
+id(a)
+id(b)
+b = 'a'
+id(b)
+[ a  ] ----->'a' (memory location)
+[    ]        ^
+[    ]        |
+[ b  ] -------+
+
+# Example in use
+----craps.py ------
+
+import random
+import sys
+
+dice=[]
+
+# set base set
+dice.append(0)
+dice.append(1)
+
+# build out dice
+# dice[7] = set((1,6), (2,5)...)
+for pip_count in range(2,13):
+    dice.append(set())
+    for pip in range(1,pip_count):
+        dice[pip_count].add((pip, pip_count-pip))
+
+# Random number generator
+r = random.Random()
+
+# First roll
+d1=r.randrange(1,6)
+d2=r.randrange(1,6)
+
+print("You rolled [%d][%d] = %d" % (d1, d2, d1+d2))
+
+# Win if first roll is 7 or 11
+if (d1, d2) in dice[7] | dice[11]:
+    print("You won")
+    sys.exit(0)
+
+# Lose if first roll is 2, 3, 12
+if (d1, d2) in dice[2] | dice[3] | dice[12]:
+    print("You lost")
+    sys.exit(0)
+
+# You established the point
+point = d1+d2
+print("")
+print("Your point is: [%d][%d] = %d" % (d1, d2, d1+d2))
+print("")
+
+# Loop until we win or lose
+while True:
+    d1=r.randrange(1,6)
+    d2=r.randrange(1,6)
+
+    print("You rolled [%d][%d] = %d" % (d1, d2, d1+d2))
+
+    # Win if we make the point
+    if (d1, d2) in dice[point]:
+        print("You win!")
+        sys.exit(0)
+    if (d1, d2) in dice[7]:
+        print("You lose!")
+        sys.exit(1)
+
+--prime numbers.py--
+primes=set(range(2,121))
+notprimes=set()
+
+index=0
+
+for i in range(2, 121):
+	product= i * (i + index)
+	while product < 121:
+		notprimes.add(product)
+		index = index + 1
+		product = i * (i + index)
+	index = 0
+primes-notprimes
