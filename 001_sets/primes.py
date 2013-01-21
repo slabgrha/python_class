@@ -10,4 +10,4 @@ for i in range(2, 121):
 	index = index + 1
 	product = i * (i + index)
     index = 0
-primes-notprimes
+print(primes-notprimes)

@@ -1,0 +1,88 @@
+String - immutable ordered sequence of characters
+
+S = 'Hello, World'
+print(S)
+
+# It's ordered
+print(S[0])
+print(S[-1])
+len(S)
+S[-1] == S[12]
+
+# 'cake' example
+S[1:3]
+S[:3]
+S[3:]
+
+# It's immutable
+S[-1] = '.'
+
+# Concrete example - user list from /etc/passwd
+userlist.sh
+-----------
+cat /etc/passwd | cut -d':' -f1
+
+userlist1.py - python example calling shell
+ - This is kinda huge & complicated - there must be something better
+
+userlist2.py - python example using a file
+ - Much shorter - less splits
+
+userlist3.py - python example using the pwd module
+ - more flexible, optimized module
+
+userlist4.py - example of flexibility of pwd module - add in pwd_dir for home dir
+
+userlist5.py - string formatting example
+    user = '0123456789'
+    dir  = '/home/user'
+    format = "%-10s.%s"
+    print format % (user, dir)
+    http://en.wikipedia.org/wiki/Printf_format_string
+
+# method soup
+formatting
+  S = 'Hello, world'
+  - upper
+    S.upper()
+  - lower
+    S.lower()
+  - swapcase
+    S.swapcase()
+  - capitalize
+    S.capitalize()
+  - title
+    S.title()
+  - center
+    S.center(80)
+  - format
+Splitting
+  - split
+    S = 'a,b,c,d,e'
+    S.split(',')
+  - splitlines
+    S = "root:x:/root\nmike:x:/home/mike\n"
+    S.splitlines()
+Finding
+  S = 'abcde'
+  - startswith
+    S.startswith('ab')
+    S.startswith('de')
+  - endswith
+    S.endswith('de')
+    S.endswith('ab')
+  - find
+    S.find('de')
+    S[3:]
+    S.find('er')
+      Returns -1
+  - index
+    S.index('de')
+    S[3:]
+    S.index('er')
+      Returns ValueError
+Removing
+  - strip
+    S = 'abcde   '
+    S.strip()
+    S.strip('ace')
