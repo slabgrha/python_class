@@ -1,7 +1,26 @@
-String - immutable ordered sequence of characters
+Name    Holds       Ordered/Unordered  Mutable/Immutable
+------  ----------  -----------------  -----------------
+String  Characters  Unordered          Mutable
 
 S = 'Hello, World'
 print(S)
+
+# Special characters ('escaped characters')
+\t, \n, etc.
+S = "Hello\nThere"
+S
+print(S)
+
+# Raw strings override the 'escaping' of characters
+S = r'Hello\nThere'
+S
+print(S)
+
+# Quoted
+- Single vs. double quotes has no effect
+S1 = "What's up"
+S2 = 'What"s up"
+S3 = 'What\'s up'
 
 # It's ordered
 print(S[0])
@@ -13,6 +32,12 @@ S[-1] == S[12]
 S[1:3]
 S[:3]
 S[3:]
+
+# extended slicing
+S='123456789'
+S[::2]
+S[1::2]
+S[::-1]
 
 # It's immutable
 S[-1] = '.'
@@ -76,6 +101,7 @@ Finding
     S[3:]
     S.find('er')
       Returns -1
+    'de' in S
   - index
     S.index('de')
     S[3:]
@@ -86,3 +112,43 @@ Removing
     S = 'abcde   '
     S.strip()
     S.strip('ace')
+
+
+####################
+# String Exercises #
+####################
+1) Program to enter two numbers and print their sum
+   For your output, use string formats, not concatenation
+   Bonus: explain what happens if you try to output the result using contatenation...
+
+  num1 = raw_input("Enter a number: ")
+  num2 = raw_input("Enter a number: ")
+  sum = int(num1) + int(num2)
+  print "The sum is: %d" % sum
+
+2) Program to prompt for a user's name and print a greeting
+   Write two versions, one useing concatenation, the other string formats
+
+  name = raw_input("Please enter your name: ")
+  print "Hello, " + name
+  
+  name = raw_input("Please enter your name: ")
+  print "Hello, %s" % name
+
+3) Program to print out the groups in /etc/group
+
+  group_file = open('/etc/groups', 'r')
+  for line in group_file.readlines():
+    line = line.strip()
+    print line.split(':')[0]
+
+4) If S = "Hello, Mike", write a program that will replace "Mike" with your name
+   and output the string.
+   Some possibilities = use slicing, use split
+   
+   S = "Hello, Mike"
+   name = "Joe"
+   print S.split(' ')[0] + " Joe"
+
+   name = "Joe"
+   print S[:S.index('M')] + "Joe" 
