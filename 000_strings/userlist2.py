@@ -2,5 +2,8 @@
 
 user_file = open('/etc/passwd', 'r')
 
-for line in user_file.readlines():
-  print( line.split(':')[0] )
+user_list = user_file.readlines()
+
+for line in user_list:
+  user = line.split(":")[0]
+  print( user )

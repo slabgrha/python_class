@@ -1,6 +1,6 @@
 Name    Holds       Ordered/Unordered  Mutable/Immutable
 ------  ----------  -----------------  -----------------
-String  Characters  Unordered          Mutable
+String  Characters  Ordered            Immutable
 
 S = 'Hello, World'
 print(S)
